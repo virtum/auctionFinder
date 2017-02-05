@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.filocha</groupId>
-    <artifactId>auctionFinder</artifactId>
+    <artifactId>auctionfinder</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
@@ -17,7 +17,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <docker.image.prefix>springio</docker.image.prefix>
+        <docker.image.prefix>virtum</docker.image.prefix>
     </properties>
 
     <dependencies>
