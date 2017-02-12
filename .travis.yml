@@ -21,6 +21,7 @@ after_success:
   # push application image to docker registry
   # initially will start to push from master
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker images;
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push virtum/auctionfinder;
     fi
