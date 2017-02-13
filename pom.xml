@@ -42,67 +42,67 @@
 
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.spotify</groupId>
-                    <artifactId>docker-maven-plugin</artifactId>
-                    <version>${docker.plugin.version}</version>
-                    <configuration>
-                        <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                        <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                        <resources>
-                            <resource>
-                                <targetPath>/</targetPath>
-                                <directory>${project.build.directory}</directory>
-                                <include>${project.build.finalName}.jar</include>
-                            </resource>
-                        </resources>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>build-image</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>build</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>remove-previous-image</id>
-                            <phase>clean</phase>
-                            <goals>
-                                <goal>removeImage</goal>
-                            </goals>
-                            <configuration>
-                                <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                                <imageTags>
-                                    <imageTag>${project.version}</imageTag>
-                                    <imageTag>latest</imageTag>
-                                </imageTags>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>tag-image</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>tag</goal>
-                            </goals>
-                            <configuration>
-                                <image>${docker.image.prefix}/${project.artifactId}</image>
-                                <newName>${docker.image.prefix}/${project.artifactId}:${project.version}</newName>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>push-image</id>
-                            <phase>deploy</phase>
-                            <goals>
-                                <goal>push</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <!--<pluginManagement>-->
+            <!--<plugins>-->
+                <!--<plugin>-->
+                    <!--<groupId>com.spotify</groupId>-->
+                    <!--<artifactId>docker-maven-plugin</artifactId>-->
+                    <!--<version>${docker.plugin.version}</version>-->
+                    <!--<configuration>-->
+                        <!--<imageName>${docker.image.prefix}/${project.artifactId}</imageName>-->
+                        <!--<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>-->
+                        <!--<resources>-->
+                            <!--<resource>-->
+                                <!--<targetPath>/</targetPath>-->
+                                <!--<directory>${project.build.directory}</directory>-->
+                                <!--<include>${project.build.finalName}.jar</include>-->
+                            <!--</resource>-->
+                        <!--</resources>-->
+                    <!--</configuration>-->
+                    <!--<executions>-->
+                        <!--<execution>-->
+                            <!--<id>build-image</id>-->
+                            <!--<phase>package</phase>-->
+                            <!--<goals>-->
+                                <!--<goal>build</goal>-->
+                            <!--</goals>-->
+                        <!--</execution>-->
+                        <!--<execution>-->
+                            <!--<id>remove-previous-image</id>-->
+                            <!--<phase>clean</phase>-->
+                            <!--<goals>-->
+                                <!--<goal>removeImage</goal>-->
+                            <!--</goals>-->
+                            <!--<configuration>-->
+                                <!--<imageName>${docker.image.prefix}/${project.artifactId}</imageName>-->
+                                <!--<imageTags>-->
+                                    <!--<imageTag>${project.version}</imageTag>-->
+                                    <!--<imageTag>latest</imageTag>-->
+                                <!--</imageTags>-->
+                            <!--</configuration>-->
+                        <!--</execution>-->
+                        <!--<execution>-->
+                            <!--<id>tag-image</id>-->
+                            <!--<phase>package</phase>-->
+                            <!--<goals>-->
+                                <!--<goal>tag</goal>-->
+                            <!--</goals>-->
+                            <!--<configuration>-->
+                                <!--<image>${docker.image.prefix}/${project.artifactId}</image>-->
+                                <!--<newName>${docker.image.prefix}/${project.artifactId}:${project.version}</newName>-->
+                            <!--</configuration>-->
+                        <!--</execution>-->
+                        <!--<execution>-->
+                            <!--<id>push-image</id>-->
+                            <!--<phase>deploy</phase>-->
+                            <!--<goals>-->
+                                <!--<goal>push</goal>-->
+                            <!--</goals>-->
+                        <!--</execution>-->
+                    <!--</executions>-->
+                <!--</plugin>-->
+            <!--</plugins>-->
+        <!--</pluginManagement>-->
 
         <plugins>
             <plugin>
@@ -113,6 +113,17 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>
