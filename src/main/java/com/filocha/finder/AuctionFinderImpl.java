@@ -51,20 +51,22 @@ public class AuctionFinderImpl implements AuctionFinder {
     }
 
     @Override
-    public List<ItemsListType> findAuctions() {
+    public List<ItemsListType> findAuctions(String keyword) {
         ServiceService allegroWebApiService = new ServiceService();
         ServicePort allegro = allegroWebApiService.getServicePort();
 
         DoGetItemsListRequest itemsreq = new DoGetItemsListRequest();
         itemsreq.setCountryId(1);
         itemsreq.setWebapiKey(webApiKey);
+        itemsreq.setResultSize(8);
 
         ArrayOfFilteroptionstype filter = new ArrayOfFilteroptionstype();
         FilterOptionsType fotcat = new FilterOptionsType();
-        fotcat.setFilterId("category");
+        fotcat.setFilterId("search");
 
         ArrayOfString categories = new ArrayOfString();
-        categories.getItem().add("4");
+        categories.getItem().add(keyword);
+
         fotcat.setFilterValueId(categories);
         filter.getItem().add(fotcat);
 

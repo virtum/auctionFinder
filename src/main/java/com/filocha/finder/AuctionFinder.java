@@ -9,5 +9,5 @@ public interface AuctionFinder {
 
     String doLogin(long localVersion);
 
-    List<ItemsListType> findAuctions();
+    List<ItemsListType> findAuctions(String keyword);
 }
