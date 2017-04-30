@@ -5,9 +5,5 @@ import java.util.List;
 
 public interface AuctionFinder {
 
-    long getLocalVersion();
-
-    String doLogin(long localVersion);
-
     List<ItemsListType> findAuctions(String keyword);
 }

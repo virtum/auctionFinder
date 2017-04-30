@@ -21,9 +21,6 @@ public class AuctionFinderImplTest {
 
     @Test
     public void shouldFindAnyAuction() {
-        long localVersion = auctionFinder.getLocalVersion();
-        auctionFinder.doLogin(localVersion);
-
         List<ItemsListType> auctions = auctionFinder.findAuctions("nokia");
         assertThat(auctions.size(), greaterThan(0));
     }

@@ -4,6 +4,7 @@ import https.webapi_allegro_pl.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Component
@@ -18,36 +19,9 @@ public class AuctionFinderImpl implements AuctionFinder {
     @Value("${webApiKey}")
     private String webApiKey;
 
-    @Override
-    public long getLocalVersion() {
-        ServiceService allegroWebApiService = new ServiceService();
-        ServicePort allegro = allegroWebApiService.getServicePort();
-
-        int countryCode = 1;
-
-        DoQueryAllSysStatusRequest params = new DoQueryAllSysStatusRequest();
-        params.setCountryId(countryCode);
-        params.setWebapiKey(webApiKey);
-        DoQueryAllSysStatusResponse response = allegro.doQueryAllSysStatus(params);
-
-        return response.getSysCountryStatus().getItem().get(0).getVerKey();
-    }
-
-    @Override
-    public String doLogin(long localVersion) {
-        ServiceService allegroWebApiService = new ServiceService();
-
-        ServicePort allegro = allegroWebApiService.getServicePort();
-
-        DoLoginRequest doLoginRequest = new DoLoginRequest();
-        doLoginRequest.setUserLogin(userLogin);
-        doLoginRequest.setUserPassword(userPassword);
-        doLoginRequest.setCountryCode(1);
-        doLoginRequest.setLocalVersion(localVersion);
-        doLoginRequest.setWebapiKey(webApiKey);
-
-        DoLoginResponse doLoginResponse = allegro.doLogin(doLoginRequest);
-        return doLoginResponse.getSessionHandlePart();
+    @PostConstruct
+    public void login() {
+        doLogin(userLogin, userPassword, webApiKey);
     }
 
     @Override
@@ -77,4 +51,36 @@ public class AuctionFinderImpl implements AuctionFinder {
         ArrayOfItemslisttype items = doGetItemsList.getItemsList();
         return items.getItem();
     }
+
+    private static long getLocalVersion(String webApiKey) {
+        ServiceService allegroWebApiService = new ServiceService();
+        ServicePort allegro = allegroWebApiService.getServicePort();
+
+        int countryCode = 1;
+
+        DoQueryAllSysStatusRequest params = new DoQueryAllSysStatusRequest();
+        params.setCountryId(countryCode);
+        params.setWebapiKey(webApiKey);
+        DoQueryAllSysStatusResponse response = allegro.doQueryAllSysStatus(params);
+
+        return response.getSysCountryStatus().getItem().get(0).getVerKey();
+    }
+
+    private static String doLogin(String userLogin, String userPassword, String webApiKey) {
+        ServiceService allegroWebApiService = new ServiceService();
+
+        ServicePort allegro = allegroWebApiService.getServicePort();
+
+        DoLoginRequest doLoginRequest = new DoLoginRequest();
+        doLoginRequest.setUserLogin(userLogin);
+        doLoginRequest.setUserPassword(userPassword);
+        doLoginRequest.setCountryCode(1);
+        doLoginRequest.setLocalVersion(getLocalVersion(webApiKey));
+        doLoginRequest.setWebapiKey(webApiKey);
+
+        DoLoginResponse doLoginResponse = allegro.doLogin(doLoginRequest);
+        return doLoginResponse.getSessionHandlePart();
+    }
+
+
 }
