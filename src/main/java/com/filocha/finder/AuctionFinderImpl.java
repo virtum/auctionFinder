@@ -2,6 +2,7 @@ package com.filocha.finder;
 
 import https.webapi_allegro_pl.service.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -20,7 +21,8 @@ public class AuctionFinderImpl implements AuctionFinder {
     private String webApiKey;
 
     @PostConstruct
-    public void login() {
+    @Scheduled(fixedRate = 60 * 60 * 1000)
+    private void login() {
         doLogin(userLogin, userPassword, webApiKey);
     }
 
