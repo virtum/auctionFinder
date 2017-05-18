@@ -1,4 +1,5 @@
 # travis need to have provided language type to start proper build process.
+install: travis_wait 30
 language: java
 
 sudo: required # for docker
