@@ -12,14 +12,14 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AuctionFinderImplTest {
 
     @Autowired
     private AuctionFinderImpl auctionFinder;
 
-    //@Test
+    @Test
     public void shouldFindAnyAuction() {
         List<ItemsListType> auctions = auctionFinder.findAuctions("nokia");
         assertThat(auctions.size(), greaterThan(0));
