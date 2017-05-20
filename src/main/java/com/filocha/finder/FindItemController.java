@@ -3,10 +3,10 @@ package com.filocha.finder;
 import com.filocha.messaging.client.ClientBusImpl;
 import com.filocha.messaging.messages.finder.ItemFinderRequestMessage;
 import com.filocha.messaging.messages.finder.ItemFinderResponseMessage;
+import com.filocha.messaging.server.ServerBusImpl;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
-import javax.annotation.PostConstruct;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -15,9 +15,17 @@ public class FindItemController {
 
     private ClientBusImpl clientBus;
 
-    @PostConstruct
-    public void setClienBus() {
-        clientBus = new ClientBusImpl();
+//    @PostConstruct
+//    public void setClienBus() {
+//        clientBus = new ClientBusImpl();
+//        clientBus.setConsumerAndProducer("failover://tcp://192.168.99.100:61616");
+//    }
+
+    public FindItemController() {
+        ServerBusImpl serverBus = new ServerBusImpl();
+        serverBus.setConsumerAndProducer("failover://tcp://localhost:61616");
+
+        ClientBusImpl clientBus = new ClientBusImpl();
         clientBus.setConsumerAndProducer("failover://tcp://localhost:61616");
     }
 
