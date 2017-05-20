@@ -19,7 +19,7 @@ public class AuctionFinderImplTest {
     @Autowired
     private AuctionFinderImpl auctionFinder;
 
-    @Test
+    //@Test
     public void shouldFindAnyAuction() {
         List<ItemsListType> auctions = auctionFinder.findAuctions("nokia");
         assertThat(auctions.size(), greaterThan(0));
