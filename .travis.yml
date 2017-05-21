@@ -13,7 +13,8 @@ cache:
   - $HOME/.m2
 
 script:
-  - docker-compose --file docker-compose-ci.yml up &
+  - docker-compose pull --file docker-compose-ci.yml
+  #- docker-compose --file docker-compose-ci.yml up &
   # produces docker images and run integration tests.
   - mvn verify
 

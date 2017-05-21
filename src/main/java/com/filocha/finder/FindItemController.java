@@ -6,7 +6,6 @@ import com.filocha.messaging.messages.finder.ItemFinderResponseMessage;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
-import javax.annotation.PostConstruct;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
