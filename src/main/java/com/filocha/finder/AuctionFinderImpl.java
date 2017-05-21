@@ -68,7 +68,7 @@ public class AuctionFinderImpl implements AuctionFinder {
         return response.getSysCountryStatus().getItem().get(0).getVerKey();
     }
 
-    private static String doLogin(String userLogin, String userPassword, String webApiKey) {
+    private static void doLogin(String userLogin, String userPassword, String webApiKey) {
         ServiceService allegroWebApiService = new ServiceService();
 
         ServicePort allegro = allegroWebApiService.getServicePort();
@@ -80,8 +80,7 @@ public class AuctionFinderImpl implements AuctionFinder {
         doLoginRequest.setLocalVersion(getLocalVersion(webApiKey));
         doLoginRequest.setWebapiKey(webApiKey);
 
-        DoLoginResponse doLoginResponse = allegro.doLogin(doLoginRequest);
-        return doLoginResponse.getSessionHandlePart();
+        allegro.doLogin(doLoginRequest);
     }
 
 
