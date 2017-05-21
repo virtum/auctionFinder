@@ -1,10 +1,10 @@
 version: '2'
 services:
-  mongodb:
-    container_name: posesorDb
-    image: mongo:3.2
-    ports:
-      - "27017:27017"
+#  mongodb:
+#    container_name: posesorDb
+#    image: mongo:3.2
+#    ports:
+#      - "27017:27017"
   rabbitmq:
     image: rabbitmq:management
     ports:
