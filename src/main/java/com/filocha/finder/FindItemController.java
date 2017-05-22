@@ -18,12 +18,12 @@ public class FindItemController {
     @PostConstruct
     public void setClienBus() {
         clientBus = new ClientBusImpl();
-        //clientBus.setConsumerAndProducer("failover://tcp://192.168.99.100:61616");
-        clientBus.setConsumerAndProducer("failover://tcp://localhost:61616");
+        clientBus.setConsumerAndProducer("failover://tcp://192.168.99.100:61616");
+        //clientBus.setConsumerAndProducer("failover://tcp://localhost:61616");
     }
 
     @CrossOrigin
-    @RequestMapping(value = "find", method = RequestMethod.POST)
+    @RequestMapping(value = "/rest/find", method = RequestMethod.POST)
     public DeferredResult<FindItemResponseModel> findItem(@RequestBody FindItemRequestModel itemRequestModel) throws ExecutionException, InterruptedException {
         ItemFinderRequestMessage requestMessage = new ItemFinderRequestMessage();
         requestMessage.setItemName(itemRequestModel.getItemName());

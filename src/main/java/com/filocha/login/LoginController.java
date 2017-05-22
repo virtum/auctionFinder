@@ -81,17 +81,6 @@ public class LoginController {
         return response;
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/rest/find", method = RequestMethod.POST)
-    public FindResponseModel find(@RequestBody FindRequestModel request, HttpSession session) {
-        System.out.println(session.getId());
-        System.out.println("Request item: " + request.getItem());
-
-        FindResponseModel response = new FindResponseModel();
-        response.setResponse("sub");
-        return response;
-    }
-
     public boolean authenticateUserAndInitializeSessionByUsername(UserModel userDetailsManager, HttpServletRequest request) {
         boolean result = true;
 
@@ -169,30 +158,6 @@ class AccessTokenResponse {
 
     private boolean response;
 
-}
-
-class FindResponseModel {
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
-
-    private String response;
-}
-
-class FindRequestModel {
-    public String getItem() {
-        return item;
-    }
-
-    public void setItem(String item) {
-        this.item = item;
-    }
-
-    private String item;
 }
 
 
