@@ -18,6 +18,7 @@ public class FindItemController {
     @PostConstruct
     public void setClienBus() {
         clientBus = new ClientBusImpl();
+        //clientBus.setConsumerAndProducer("failover://tcp://192.168.99.100:61616");
         clientBus.setConsumerAndProducer("failover://tcp://localhost:61616");
     }
 
