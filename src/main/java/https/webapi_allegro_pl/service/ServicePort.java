@@ -27,18 +27,6 @@ public interface ServicePort {
      * 
      * @param parameters
      * @return
-     *     returns https.webapi_allegro_pl.service.DoAddDescToItemsResponse
-     */
-    @WebMethod(action = "#doAddDescToItems")
-    @WebResult(name = "doAddDescToItemsResponse", targetNamespace = "https://webapi.allegro.pl/service.php", partName = "parameters")
-    public DoAddDescToItemsResponse doAddDescToItems(
-        @WebParam(name = "DoAddDescToItemsRequest", targetNamespace = "https://webapi.allegro.pl/service.php", partName = "parameters")
-        DoAddDescToItemsRequest parameters);
-
-    /**
-     * 
-     * @param parameters
-     * @return
      *     returns https.webapi_allegro_pl.service.DoAddPackageInfoToPostBuyFormResponse
      */
     @WebMethod(action = "#doAddPackageInfoToPostBuyForm")

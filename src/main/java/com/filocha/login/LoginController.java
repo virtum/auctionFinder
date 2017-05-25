@@ -1,11 +1,10 @@
 package com.filocha.login;
 
+import com.filocha.security.SessionHandler;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.json.JSONObject;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +16,9 @@ import java.security.Principal;
 
 @RestController
 public class LoginController {
+
+    @Autowired
+    private SessionHandler sessionHandler;
 
     @CrossOrigin
     @RequestMapping(value = "login", method = RequestMethod.POST)
@@ -30,20 +32,24 @@ public class LoginController {
 
     @CrossOrigin
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public AccessTokenResponse authenticate(@RequestBody AccessTokenRequest token, HttpServletRequest request) throws Exception {
+    public AccessTokenResponse authenticate(@RequestBody AccessTokenRequest token, HttpServletRequest request, Principal principal) {
+        System.out.println(principal);
         System.out.println(request.getSession().getId());
         String accessToken = token.getAccessToken();
-        String email = getEmailFromFacebook(accessToken);
 
-        // System.out.println("token: " + accessToken + "\nemail: " + email);
+        boolean logged = false;
+        try {
+            String email = getEmailFromFacebook(accessToken);
+            UserModel user = new UserModel();
+            user.setPassword("");
+            user.setUserName("");
 
-        //TODO Do i really need to store password?
-        //TODO accessToken expiration time
-        UserModel user = new UserModel();
-        user.setPassword(accessToken);
-        user.setUserName(email);
+            logged = sessionHandler.authenticateUserAndInitializeSessionByUsername(user);
 
-        boolean logged = authenticateUserAndInitializeSessionByUsername(user, request);
+        } catch (Exception exc) {
+            //TODO Change exception to more descriptive type
+            //print exc
+        }
 
         AccessTokenResponse response = new AccessTokenResponse();
         response.setResponse(logged);
@@ -79,29 +85,6 @@ public class LoginController {
         AccessTokenResponse response = new AccessTokenResponse();
         response.setResponse(false);
         return response;
-    }
-
-    public boolean authenticateUserAndInitializeSessionByUsername(UserModel userDetailsManager, HttpServletRequest request) {
-        boolean result = true;
-
-        try {
-            // generate session if one doesn't exist
-            request.getSession();
-
-            // Authenticate the user
-            UserDetails user = userDetailsManager;
-            Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(auth);
-
-            //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            //System.out.println(authentication);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-
-            result = false;
-        }
-
-        return result;
     }
 
 

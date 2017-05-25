@@ -1510,14 +1510,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DoAddDescToItemsResponse }
-     * 
-     */
-    public DoAddDescToItemsResponse createDoAddDescToItemsResponse() {
-        return new DoAddDescToItemsResponse();
-    }
-
-    /**
      * Create an instance of {@link DoGetRefundsReasonsResponse }
      * 
      */
@@ -2654,14 +2646,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DoAddDescToItemsRequest }
-     * 
-     */
-    public DoAddDescToItemsRequest createDoAddDescToItemsRequest() {
-        return new DoAddDescToItemsRequest();
-    }
-
-    /**
      * Create an instance of {@link DoRequestCancelBidRequest }
      * 
      */
@@ -2931,6 +2915,14 @@ public class ObjectFactory {
      */
     public ArrayOfItemsurchargestruct createArrayOfItemsurchargestruct() {
         return new ArrayOfItemsurchargestruct();
+    }
+
+    /**
+     * Create an instance of {@link ArrayOfPostbuyformitemdealsadditionalservicestruct }
+     * 
+     */
+    public ArrayOfPostbuyformitemdealsadditionalservicestruct createArrayOfPostbuyformitemdealsadditionalservicestruct() {
+        return new ArrayOfPostbuyformitemdealsadditionalservicestruct();
     }
 
     /**
@@ -4043,6 +4035,14 @@ public class ObjectFactory {
      */
     public ShipmentPriceTypeStruct createShipmentPriceTypeStruct() {
         return new ShipmentPriceTypeStruct();
+    }
+
+    /**
+     * Create an instance of {@link PostBuyFormItemDealsAdditionalServiceStruct }
+     * 
+     */
+    public PostBuyFormItemDealsAdditionalServiceStruct createPostBuyFormItemDealsAdditionalServiceStruct() {
+        return new PostBuyFormItemDealsAdditionalServiceStruct();
     }
 
     /**
