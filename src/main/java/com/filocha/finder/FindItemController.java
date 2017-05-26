@@ -3,6 +3,7 @@ package com.filocha.finder;
 import com.filocha.messaging.client.ClientBusImpl;
 import com.filocha.messaging.messages.finder.ItemFinderRequestMessage;
 import com.filocha.messaging.messages.finder.ItemFinderResponseMessage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
@@ -15,11 +16,13 @@ public class FindItemController {
 
     private ClientBusImpl clientBus;
 
+    @Value("${dockerPort}")
+    private String dockerPort;
+
     @PostConstruct
     public void setClienBus() {
         clientBus = new ClientBusImpl();
-        //clientBus.setConsumerAndProducer("failover://tcp://192.168.99.100:61616");
-        clientBus.setConsumerAndProducer("failover://tcp://localhost:61616");
+        clientBus.setConsumerAndProducer(dockerPort);
     }
 
     @CrossOrigin
