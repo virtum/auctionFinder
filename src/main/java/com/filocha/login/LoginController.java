@@ -16,7 +16,7 @@ public class LoginController {
     public AuthenticateResponseModel authenticate(@RequestBody AuthenticateRequestModel token) {
         String accessToken = token.getAccessToken();
 
-        boolean logged = loginService.handleLogin(accessToken);
+        boolean logged = loginService.authenticateUser(accessToken);
 
         AuthenticateResponseModel response = new AuthenticateResponseModel();
         response.setLogged(logged);

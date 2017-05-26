@@ -22,7 +22,7 @@ public class LoginServiceImpl implements LoginService {
     private SessionHandler sessionHandler;
 
     @Override
-    public boolean handleLogin(String accessToken) {
+    public boolean authenticateUser(String accessToken) {
         String email = getEmailFromFacebook(accessToken);
 
         AuthenticateResponseModel response = new AuthenticateResponseModel();
