@@ -23,22 +23,20 @@ public class LoginController {
     @CrossOrigin
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public AuthenticateResponseModel authenticate(@RequestBody AuthenticateRequestModel token, HttpServletRequest request, Principal principal) {
-        System.out.println(principal);
-        System.out.println(request.getSession().getId());
         String accessToken = token.getAccessToken();
 
         boolean logged = false;
         try {
             String email = getEmailFromFacebook(accessToken);
+
             UserModel user = new UserModel();
-            user.setPassword("");
-            user.setUserName("");
+            user.setPassword(accessToken);
+            user.setUserName(email);
 
             logged = sessionHandler.authenticateUserAndInitializeSessionByUsername(user);
 
         } catch (Exception exc) {
             //TODO Change exception to more descriptive type
-            //print exc
         }
 
         AuthenticateResponseModel response = new AuthenticateResponseModel();
@@ -49,9 +47,6 @@ public class LoginController {
     @CrossOrigin
     @RequestMapping(value = "/isLogged", method = RequestMethod.GET)
     public LoginCheckerResponeModel checkIfUserIsLogged(Principal principal, HttpSession session) {
-        System.out.println("in auth");
-        System.out.println(session.getId());
-
         Authentication authentication = (Authentication) principal;
         LoginCheckerResponeModel response = new LoginCheckerResponeModel();
 
@@ -66,11 +61,7 @@ public class LoginController {
     @CrossOrigin
     @RequestMapping(value = "/rest/logout", method = RequestMethod.GET)
     public LogoutResponseModel logout(HttpSession session) {
-        System.out.println(session.getId());
-        System.out.println("in logout");
-
         session.invalidate();
-        //TODO add something to check id session was invalidate before response
 
         LogoutResponseModel response = new LogoutResponseModel();
         response.setResponse(false);
