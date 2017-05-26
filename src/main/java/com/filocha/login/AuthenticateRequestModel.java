@@ -1,6 +1,8 @@
 package com.filocha.login;
 
-public class LoginRequestModel {
+public class AuthenticateRequestModel {
+    private String accessToken;
+
     public String getAccessToken() {
         return accessToken;
     }
@@ -9,5 +11,5 @@ public class LoginRequestModel {
         this.accessToken = accessToken;
     }
 
-    private String accessToken;
+
 }

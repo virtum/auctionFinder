@@ -21,18 +21,8 @@ public class LoginController {
     private SessionHandler sessionHandler;
 
     @CrossOrigin
-    @RequestMapping(value = "login", method = RequestMethod.POST)
-    public LoginResponseModel login(@RequestBody LoginRequestModel request) {
-
-        LoginResponseModel response = new LoginResponseModel();
-        response.setLogged(true);
-
-        return response;
-    }
-
-    @CrossOrigin
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public AccessTokenResponse authenticate(@RequestBody AccessTokenRequest token, HttpServletRequest request, Principal principal) {
+    public AuthenticateResponseModel authenticate(@RequestBody AuthenticateRequestModel token, HttpServletRequest request, Principal principal) {
         System.out.println(principal);
         System.out.println(request.getSession().getId());
         String accessToken = token.getAccessToken();
@@ -51,38 +41,38 @@ public class LoginController {
             //print exc
         }
 
-        AccessTokenResponse response = new AccessTokenResponse();
-        response.setResponse(logged);
+        AuthenticateResponseModel response = new AuthenticateResponseModel();
+        response.setLogged(logged);
         return response;
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/auth", method = RequestMethod.GET)
-    public AccessTokenResponse auth(Principal principal, HttpSession session) {
+    @RequestMapping(value = "/isLogged", method = RequestMethod.GET)
+    public LoginCheckerResponeModel checkIfUserIsLogged(Principal principal, HttpSession session) {
         System.out.println("in auth");
         System.out.println(session.getId());
 
         Authentication authentication = (Authentication) principal;
-        AccessTokenResponse response = new AccessTokenResponse();
+        LoginCheckerResponeModel response = new LoginCheckerResponeModel();
 
         if (authentication == null) {
-            response.setResponse(false);
+            response.setLogged(false);
             return response;
         }
-        response.setResponse(authentication.isAuthenticated());
+        response.setLogged(authentication.isAuthenticated());
         return response;
     }
 
     @CrossOrigin
     @RequestMapping(value = "/rest/logout", method = RequestMethod.GET)
-    public AccessTokenResponse logout(HttpSession session) {
+    public LogoutResponseModel logout(HttpSession session) {
         System.out.println(session.getId());
         System.out.println("in logout");
 
         session.invalidate();
         //TODO add something to check id session was invalidate before response
 
-        AccessTokenResponse response = new AccessTokenResponse();
+        LogoutResponseModel response = new LogoutResponseModel();
         response.setResponse(false);
         return response;
     }
@@ -117,30 +107,6 @@ public class LoginController {
     }
 }
 
-class AccessTokenRequest {
-    public String getAccessToken() {
-        return accessToken;
-    }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    private String accessToken;
-
-}
-
-class AccessTokenResponse {
-    public boolean getResponse() {
-        return response;
-    }
-
-    public void setResponse(boolean response) {
-        this.response = response;
-    }
-
-    private boolean response;
-
-}
 
 
