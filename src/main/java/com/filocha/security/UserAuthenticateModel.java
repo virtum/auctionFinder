@@ -1,11 +1,11 @@
-package com.filocha.login;
+package com.filocha.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class UserModel implements UserDetails {
+public class UserAuthenticateModel implements UserDetails {
     private String userName;
     private String password;
 

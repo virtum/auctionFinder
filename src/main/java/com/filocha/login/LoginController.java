@@ -1,6 +1,7 @@
 package com.filocha.login;
 
 import com.filocha.security.SessionHandler;
+import com.filocha.security.UserAuthenticateModel;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class LoginController {
         try {
             String email = getEmailFromFacebook(accessToken);
 
-            UserModel user = new UserModel();
+            UserAuthenticateModel user = new UserAuthenticateModel();
             user.setPassword(accessToken);
             user.setUserName(email);
 

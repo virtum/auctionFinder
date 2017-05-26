@@ -1,6 +1,5 @@
 package com.filocha.security;
 
-import com.filocha.login.UserModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,7 +55,7 @@ public class SecurityTest {
                 .andExpect(status().is4xxClientError());
 
 
-        UserModel user = new UserModel();
+        UserAuthenticateModel user = new UserAuthenticateModel();
         user.setPassword("temp");
         user.setUserName("temp");
 
