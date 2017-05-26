@@ -12,5 +12,11 @@ public interface LoginService {
      */
     boolean authenticateUser(String accessToken);
 
+    /***
+     * This method is used to check if user is authenticated or not.
+     *
+     * @param principal user data, used to see if user was authenticated properly
+     * @return true if user was properly authenticated, otherwise false
+     */
     boolean checkIfUserIsLogged(Principal principal);
 }
