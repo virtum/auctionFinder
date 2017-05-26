@@ -5,6 +5,7 @@ import com.filocha.security.UserAuthenticateModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Principal;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -33,6 +35,16 @@ public class LoginServiceImpl implements LoginService {
         user.setUserName(email);
 
         return sessionHandler.authenticateUserAndInitializeSessionByUsername(user);
+    }
+
+    @Override
+    public boolean checkIfUserIsLogged(Principal principal) {
+        Authentication authentication = (Authentication) principal;
+
+        if (authentication == null) {
+            return false;
+        }
+        return authentication.isAuthenticated();
     }
 
     private String getEmailFromFacebook(String accessToken) {

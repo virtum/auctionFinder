@@ -1,10 +1,8 @@
 package com.filocha.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @RestController
@@ -27,15 +25,11 @@ public class LoginController {
 
     @CrossOrigin
     @RequestMapping(value = "/isLogged", method = RequestMethod.GET)
-    public LoginCheckerResponeModel checkIfUserIsLogged(Principal principal, HttpSession session) {
-        Authentication authentication = (Authentication) principal;
-        LoginCheckerResponeModel response = new LoginCheckerResponeModel();
+    public LoginCheckerResponeModel checkIfUserIsLogged(Principal principal) {
+        boolean logged = loginService.checkIfUserIsLogged(principal);
 
-        if (authentication == null) {
-            response.setLogged(false);
-            return response;
-        }
-        response.setLogged(authentication.isAuthenticated());
+        LoginCheckerResponeModel response = new LoginCheckerResponeModel();
+        response.setLogged(logged);
         return response;
     }
 
