@@ -58,17 +58,6 @@ public class LoginController {
         return response;
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/rest/logout", method = RequestMethod.GET)
-    public LogoutResponseModel logout(HttpSession session) {
-        session.invalidate();
-
-        LogoutResponseModel response = new LogoutResponseModel();
-        response.setResponse(false);
-        return response;
-    }
-
-
     private String getEmailFromFacebook(String accessToken) throws Exception {
         String url = "https://graph.facebook.com/me?fields=email&access_token=" + accessToken;
 

@@ -1,4 +1,4 @@
-package com.filocha.login;
+package com.filocha.logout;
 
 public class LogoutResponseModel {
 
