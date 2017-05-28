@@ -11,6 +11,12 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    /**
+     * This method is used to authenticate user using accessToken from facebook received with http request.
+     *
+     * @param token accessToken received from facebook after user login
+     * @return response with information if user was properly authenticated on backend side or not
+     */
     @CrossOrigin
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public AuthenticateResponseModel authenticate(@RequestBody AuthenticateRequestModel token) {
@@ -23,6 +29,12 @@ public class LoginController {
         return response;
     }
 
+    /**
+     * This method is used to check if user is authenticated or not.
+     *
+     * @param principal user data, contains information about user
+     * @return response with information if user is authenticated or not
+     */
     @CrossOrigin
     @RequestMapping(value = "/isLogged", method = RequestMethod.GET)
     public LoginCheckerResponeModel checkIfUserIsLogged(Principal principal) {

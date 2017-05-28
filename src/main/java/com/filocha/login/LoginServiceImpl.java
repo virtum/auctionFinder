@@ -47,6 +47,12 @@ public class LoginServiceImpl implements LoginService {
         return authentication.isAuthenticated();
     }
 
+    /***
+     * This method is used to send request via http to facebook to get user e-mail using accessToken.
+     *
+     * @param accessToken token received after login to facebook
+     * @return user e-mail, in case of exception empty string
+     */
     private String getEmailFromFacebook(String accessToken) {
         String url = "https://graph.facebook.com/me?fields=email&access_token=" + accessToken;
 
