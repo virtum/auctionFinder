@@ -1,6 +1,6 @@
 package com.filocha.login;
 
-import com.filocha.security.SessionHandler;
+import com.filocha.security.AuthenticationHandler;
 import com.filocha.security.UserAuthenticateModel;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +19,7 @@ import java.security.Principal;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    private SessionHandler sessionHandler;
+    private AuthenticationHandler authenticationHandler;
 
     @Override
     public boolean authenticateUser(String accessToken) {
@@ -34,7 +34,7 @@ public class LoginServiceImpl implements LoginService {
         user.setPassword(accessToken);
         user.setUserName(email);
 
-        return sessionHandler.authenticateUserAndInitializeSessionByUsername(user);
+        return authenticationHandler.authenticateUserAndInitializeSessionByUsername(user);
     }
 
     @Override

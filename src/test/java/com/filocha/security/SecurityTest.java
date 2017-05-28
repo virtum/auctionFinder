@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 public class SecurityTest {
 
     @Autowired
-    private SessionHandler sessionHandler;
+    private AuthenticationHandler authenticationHandler;
 
     @Autowired
     private WebApplicationContext wac;
@@ -59,7 +59,7 @@ public class SecurityTest {
         user.setPassword("temp");
         user.setUserName("temp");
 
-        sessionHandler.authenticateUserAndInitializeSessionByUsername(user);
+        authenticationHandler.authenticateUserAndInitializeSessionByUsername(user);
 
         session = new MockHttpSession();
         session.setAttribute(

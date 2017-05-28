@@ -6,25 +6,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SessionHandler {
+public class AuthenticationHandler {
 
+    /**
+     * This method is used to add new user into spring security context to authenticate him.
+     *
+     * @param userModel contains data about user necessary to authentication
+     * @return true if user was properly added to spring security context, otherwise false
+     */
     public boolean authenticateUserAndInitializeSessionByUsername(UserAuthenticateModel userModel) {
-        boolean result = true;
-
         try {
-            // generate session if one doesn't exist
-            //request.getSession();
-
-            // Authenticate the user
             Authentication auth = new UsernamePasswordAuthenticationToken(userModel, null, userModel.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
 
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
-            result = false;
+            return false;
         }
-
-        return result;
     }
 }
