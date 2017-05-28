@@ -10,6 +10,12 @@ import javax.servlet.http.HttpSession;
 @RestController
 public class LogoutController {
 
+    /**
+     * This method is used to logout logged user.
+     *
+     * @param session is used to invalidate user from spring security context
+     * @return response with flag to see if user was logged out
+     */
     @CrossOrigin
     @RequestMapping(value = "/rest/logout", method = RequestMethod.GET)
     public LogoutResponseModel logout(HttpSession session) {
