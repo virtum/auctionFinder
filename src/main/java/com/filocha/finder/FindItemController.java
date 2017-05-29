@@ -32,7 +32,7 @@ public class FindItemController {
     public DeferredResult<FindItemResponseModel> findItem(@RequestBody FindItemRequestModel itemRequestModel, Principal principal) throws ExecutionException, InterruptedException {
         ItemFinderRequestMessage requestMessage = new ItemFinderRequestMessage();
         requestMessage.setItem(itemRequestModel.getItem());
-        requestMessage.setItem(principal.getName());
+        requestMessage.setEmail(principal.getName());
 
         CompletableFuture<ItemFinderResponseMessage> responseMessage = clientBus.sendRequest(requestMessage, ItemFinderRequestMessage.class);
 
