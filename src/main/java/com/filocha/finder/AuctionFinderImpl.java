@@ -1,6 +1,8 @@
 package com.filocha.finder;
 
 import https.webapi_allegro_pl.service.*;
+import https.webapi_allegro_pl.service_php.ServicePort;
+import https.webapi_allegro_pl.service_php.ServiceService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
