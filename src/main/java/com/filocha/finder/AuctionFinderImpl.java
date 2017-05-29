@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 @Component
 public class AuctionFinderImpl implements AuctionFinder {
@@ -52,13 +50,13 @@ public class AuctionFinderImpl implements AuctionFinder {
 
         itemsreq.setFilterOptions(filter);
 
-        CompletableFuture<ItemsListType> result = new CompletableFuture<>();
+        //CompletableFuture<ItemsListType> result = new CompletableFuture<>();
         DoGetItemsListResponse doGetItemsList = allegro.doGetItemsList(itemsreq);
 
-        //TODO finish handler with new generated code from wsdl
-        Consumer<ItemsListType> handler = (arg -> {
-            result.complete(arg);
-        });
+//        //TODO finish handler with new generated code from wsdl
+//        Consumer<ItemsListType> handler = (arg -> {
+//            result.complete(arg);
+//        });
 
         ArrayOfItemslisttype items = doGetItemsList.getItemsList();
         return items.getItem();
