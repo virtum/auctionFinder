@@ -1,14 +1,15 @@
 package com.filocha.finder;
 
 public class FindItemRequestModel {
+    private String item;
 
-    public String getItemName() {
-        return itemName;
+    public String getItem() {
+        return item;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setItem(String item) {
+        this.item = item;
     }
 
-    private String itemName;
+
 }
