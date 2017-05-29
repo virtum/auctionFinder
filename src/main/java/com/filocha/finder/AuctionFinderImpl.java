@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 public class AuctionFinderImpl implements AuctionFinder {
@@ -29,7 +30,7 @@ public class AuctionFinderImpl implements AuctionFinder {
     }
 
     @Override
-    public List<ItemsListType> findAuctions(String keyword) {
+    public CompletableFuture<List<ItemsListType>> findAuctions(String keyword) {
         ServiceService allegroWebApiService = new ServiceService();
         ServicePort allegro = allegroWebApiService.getServicePort();
 
@@ -50,17 +51,27 @@ public class AuctionFinderImpl implements AuctionFinder {
 
         itemsreq.setFilterOptions(filter);
 
-        //CompletableFuture<ItemsListType> result = new CompletableFuture<>();
-        DoGetItemsListResponse doGetItemsList = allegro.doGetItemsList(itemsreq);
+        CompletableFuture<List<ItemsListType>> result = new CompletableFuture<>();
 
-//        //TODO finish handler with new generated code from wsdl
-//        Consumer<ItemsListType> handler = (arg -> {
+        //TODO finish handler with new generated code from wsdl
+//        CompletableFuture<List<ItemsListType>> handler = (arg -> {
 //            result.complete(arg);
 //        });
 
-        ArrayOfItemslisttype items = doGetItemsList.getItemsList();
-        return items.getItem();
-        //return result;
+        //DoGetItemsListResponse doGetItemsList =
+        allegro.doGetItemsListAsync(itemsreq, args -> {
+            System.out.println("asyncHandler");
+            result.thenAcceptAsync(it -> {
+                System.out.println("thenaccept");
+            });
+        });
+
+
+//        CompletableFuture<List<ItemsListType>> result = new CompletableFuture<>();
+//
+//        ArrayOfItemslisttype items = doGetItemsList.getItemsList();
+        //return items.getItem();
+        return result;
     }
 
     private static long getLocalVersion(String webApiKey) {
