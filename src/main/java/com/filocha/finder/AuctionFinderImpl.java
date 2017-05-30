@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Component
 public class AuctionFinderImpl implements AuctionFinder {
@@ -53,24 +54,18 @@ public class AuctionFinderImpl implements AuctionFinder {
 
         CompletableFuture<List<ItemsListType>> result = new CompletableFuture<>();
 
-        //TODO finish handler with new generated code from wsdl
-//        CompletableFuture<List<ItemsListType>> handler = (arg -> {
-//            result.complete(arg);
-//        });
-
-        //DoGetItemsListResponse doGetItemsList =
         allegro.doGetItemsListAsync(itemsreq, args -> {
-            System.out.println("asyncHandler");
-            result.thenAcceptAsync(it -> {
-                System.out.println("thenaccept");
-            });
+            System.out.println("asyncHandlerStart");
+            try {
+                result.complete(args.get().getItemsList().getItem());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            System.out.println("asyncHandlerEnd");
         });
 
-
-//        CompletableFuture<List<ItemsListType>> result = new CompletableFuture<>();
-//
-//        ArrayOfItemslisttype items = doGetItemsList.getItemsList();
-        //return items.getItem();
         return result;
     }
 

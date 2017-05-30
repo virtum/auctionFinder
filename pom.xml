@@ -170,8 +170,8 @@
                         <verbose>true</verbose>
                         <fork>true</fork>
                         <compilerVersion>${java.version}</compilerVersion>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
+                        <source>1.8</source>
+                        <target>1.8</target>
                     </configuration>
                 </plugin>
 
@@ -184,13 +184,12 @@
                             <id>test-service</id>
                             <phase>generate-sources</phase>
                             <configuration>
-                                <sourceRoot>${basedir}/src/main/java</sourceRoot>
+                                <sourceRoot>${project.basedir}/src/main/java</sourceRoot>
                                 <wsdlOptions>
                                     <wsdlOption>
-                                        <wsdl>${basedir}/src/main/resources/test.wsdl</wsdl>
-                                        <!--<serviceName>Test_Operation_Manager</serviceName>-->
+                                        <wsdl>${project.basedir}/src/main/resources/test.wsdl</wsdl>
                                         <bindingFiles>
-                                            <bindingFile>${basedir}/src/main/resources/test_binding.xml</bindingFile>
+                                            <bindingFile>${project.basedir}/src/main/resources/test_binding.xml</bindingFile>
                                         </bindingFiles>
                                         <extraargs>
                                             <extraarg>-xjc-Xts</extraarg>
