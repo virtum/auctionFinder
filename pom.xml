@@ -19,7 +19,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <docker.image.prefix>virtum</docker.image.prefix>
         <docker.plugin.version>0.4.13</docker.plugin.version>
-        <cxf.version>2.2.9</cxf.version>
     </properties>
 
     <dependencies>
@@ -67,26 +66,6 @@
                     <artifactId>log4j</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-common-utilities</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-tools-common</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-simple</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-transports-http</artifactId>
-            <version>${cxf.version}</version>
         </dependency>
     </dependencies>
 
@@ -164,58 +143,17 @@
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
             </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <verbose>true</verbose>
-                        <fork>true</fork>
-                        <compilerVersion>${java.version}</compilerVersion>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.cxf</groupId>
-                    <artifactId>cxf-codegen-plugin</artifactId>
-                    <version>${cxf.version}</version>
-                    <executions>
-                        <execution>
-                            <id>test-service</id>
-                            <phase>generate-sources</phase>
-                            <configuration>
-                                <sourceRoot>${project.basedir}/src/main/java</sourceRoot>
-                                <wsdlOptions>
-                                    <wsdlOption>
-                                        <wsdl>${project.basedir}/src/main/resources/test.wsdl</wsdl>
-                                        <bindingFiles>
-                                            <bindingFile>${project.basedir}/src/main/resources/test_binding.xml</bindingFile>
-                                        </bindingFiles>
-                                        <extraargs>
-                                            <extraarg>-xjc-Xts</extraarg>
-                                        </extraargs>
-                                    </wsdlOption>
-                                </wsdlOptions>
-                            </configuration>
-                            <goals>
-                                <goal>wsdl2java</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>xerces</groupId>
-                            <artifactId>xercesImpl</artifactId>
-                            <version>2.9.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.cxf</groupId>
-                            <artifactId>cxf-xjc-ts</artifactId>
-                            <version>${cxf.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-            </plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <verbose>true</verbose>
+                    <fork>true</fork>
+                    <compilerVersion>${java.version}</compilerVersion>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <repositories>
