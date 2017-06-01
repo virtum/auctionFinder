@@ -27,11 +27,11 @@ public class FindItemController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/rest/find", method = RequestMethod.POST)
-    public DeferredResult<FindItemResponseModel> findItem(@RequestBody FindItemRequestModel itemRequestModel, Principal principal) throws ExecutionException, InterruptedException {
+    @RequestMapping(value = "/find", method = RequestMethod.POST)
+    public DeferredResult<FindItemResponseModel> findItem(@RequestBody FindItemRequestModel itemRequestModel) throws ExecutionException, InterruptedException {
         ItemFinderRequestMessage requestMessage = new ItemFinderRequestMessage();
         requestMessage.setItem(itemRequestModel.getItem());
-        requestMessage.setEmail(principal.getName());
+        requestMessage.setEmail(itemRequestModel.getEmail());
 
         CompletableFuture<ItemFinderResponseMessage> responseMessage = clientBus.sendRequest(requestMessage, ItemFinderRequestMessage.class);
 
