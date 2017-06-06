@@ -42,6 +42,7 @@ public class LoginController {
 
         LoginCheckerResponeModel response = new LoginCheckerResponeModel();
         response.setLogged(logged);
+        System.out.println("isLogged: " + logged);
         return response;
     }
 

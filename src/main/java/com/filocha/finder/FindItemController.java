@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
 import javax.annotation.PostConstruct;
-import java.security.Principal;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -39,7 +38,7 @@ public class FindItemController {
 
         DeferredResult<FindItemResponseModel> result = new DeferredResult<>(60000L, "Timeout");
         responseMessage.thenAcceptAsync(it -> {
-            response.setResponse("Received from backend: " + it.getResponse());
+            response.setResponse(it.getResponse());
             System.out.println(it.getResponse());
             result.setResult(response);
         });
