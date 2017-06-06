@@ -44,7 +44,7 @@ public class SecurityTest {
 
     @Test
     public void shouldAllowAccessToSecuredPageForPermittedUser() throws Exception {
-        final String SECURED_URI = "/rest/account";
+        final String SECURED_URI = "/rest/subscriptions";
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(
