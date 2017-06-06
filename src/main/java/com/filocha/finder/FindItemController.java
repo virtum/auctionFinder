@@ -9,7 +9,6 @@ import org.springframework.web.context.request.async.DeferredResult;
 
 import javax.annotation.PostConstruct;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 public class FindItemController {
@@ -27,7 +26,7 @@ public class FindItemController {
 
     @CrossOrigin
     @RequestMapping(value = "/find", method = RequestMethod.POST)
-    public DeferredResult<FindItemResponseModel> findItem(@RequestBody FindItemRequestModel itemRequestModel) throws ExecutionException, InterruptedException {
+    public DeferredResult<FindItemResponseModel> findItem(@RequestBody FindItemRequestModel itemRequestModel) {
         ItemFinderRequestMessage requestMessage = new ItemFinderRequestMessage();
         requestMessage.setItem(itemRequestModel.getItem());
         requestMessage.setEmail(itemRequestModel.getEmail());
