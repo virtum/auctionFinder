@@ -3,26 +3,18 @@ package com.filocha.finder;
 import com.filocha.messaging.client.ClientBusImpl;
 import com.filocha.messaging.messages.finder.ItemFinderRequestMessage;
 import com.filocha.messaging.messages.finder.ItemFinderResponseMessage;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
-import javax.annotation.PostConstruct;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
 public class FindItemController {
 
+    @Autowired
     private ClientBusImpl clientBus;
 
-    @Value("${dockerPort}")
-    private String dockerPort;
-
-    @PostConstruct
-    public void setClienBus() {
-        clientBus = new ClientBusImpl();
-        clientBus.setConsumerAndProducer(dockerPort);
-    }
 
     @CrossOrigin
     @RequestMapping(value = "/find", method = RequestMethod.POST)
