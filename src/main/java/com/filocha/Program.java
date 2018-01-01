@@ -23,7 +23,7 @@ public class Program {
     @Bean
     public ClientBusImpl getClientBusImplBean() {
         ClientBusImpl clientBus = new ClientBusImpl();
-        clientBus.setConsumerAndProducer(dockerPort);
+        clientBus.setConsumerAndProducer(dockerPort, "RESPONSE.QUEUE", "REQUEST.QUEUE");
 
         return clientBus;
     }
