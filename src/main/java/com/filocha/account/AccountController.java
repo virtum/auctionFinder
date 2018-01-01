@@ -26,8 +26,10 @@ public class AccountController {
         AccountResponseModel response = new AccountResponseModel();
         response.setAccountData("test");
 
-        SubscriptionsRequestModel requestMessage = new SubscriptionsRequestModel();
-        requestMessage.setEmail(principal.getName());
+        SubscriptionsRequestModel requestMessage = SubscriptionsRequestModel
+                .builder()
+                .email(principal.getName())
+                .build();
 
         CompletableFuture<SubscriptionsResponseModel> responseMessage = clientBus.sendRequest(requestMessage, SubscriptionsRequestModel.class);
 

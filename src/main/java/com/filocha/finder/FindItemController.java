@@ -19,9 +19,11 @@ public class FindItemController {
     @CrossOrigin
     @RequestMapping(value = "/find", method = RequestMethod.POST)
     public DeferredResult<FindItemResponseModel> findItem(@RequestBody FindItemRequestModel itemRequestModel) {
-        ItemFinderRequestMessage requestMessage = new ItemFinderRequestMessage();
-        requestMessage.setItem(itemRequestModel.getItem());
-        requestMessage.setEmail(itemRequestModel.getEmail());
+        ItemFinderRequestMessage requestMessage = ItemFinderRequestMessage
+                .builder()
+                .item(itemRequestModel.getItem())
+                .email(itemRequestModel.getEmail())
+                .build();
 
         CompletableFuture<ItemFinderResponseMessage> responseMessage = clientBus.sendRequest(requestMessage, ItemFinderRequestMessage.class);
 
