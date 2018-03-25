@@ -25,15 +25,11 @@ public class FindItemController {
 
         final CompletableFuture<ItemFinderResponseMessage> responseMessage = clientBus.sendRequest(requestMessage, ItemFinderRequestMessage.class);
 
-        final FindItemResponseModel response = new FindItemResponseModel();
-
         final DeferredResult<FindItemResponseModel> result = new DeferredResult<>(60000L, "Timeout");
-        responseMessage.thenAcceptAsync(it -> {
-            response.setResponse(it.getResponse());
-            System.out.println(it.getResponse());
-            result.setResult(response);
-        });
-        
+        responseMessage.thenAcceptAsync(it -> result.setResult(FindItemResponseModel.builder()
+                .response(it.getResponse())
+                .build()));
+
         return result;
     }
 

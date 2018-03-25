@@ -1,13 +1,10 @@
 package com.filocha.finder;
 
-public class FindItemResponseModel {
+import lombok.Builder;
+import lombok.Value;
+
+@Value
+@Builder
+class FindItemResponseModel {
     private String response;
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
-
-    public String getResponse() {
-        return response;
-    }
 }

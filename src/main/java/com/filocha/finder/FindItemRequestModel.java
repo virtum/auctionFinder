@@ -5,7 +5,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class FindItemRequestModel {
+class FindItemRequestModel {
     private String item;
     private String email;
 
