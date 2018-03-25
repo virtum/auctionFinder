@@ -1,5 +1,6 @@
 package com.filocha.account;
 
+import com.filocha.messaging.client.ClientBus;
 import com.filocha.messaging.client.ClientBusImpl;
 import com.filocha.messaging.messages.subscriptions.SubscriptionsRequestModel;
 import com.filocha.messaging.messages.subscriptions.SubscriptionsResponseModel;
@@ -17,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 public class AccountController {
 
     @Autowired
-    private ClientBusImpl clientBus;
+    private ClientBus clientBus;
 
 
     @CrossOrigin
