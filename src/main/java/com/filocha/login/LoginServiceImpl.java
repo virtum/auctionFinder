@@ -22,19 +22,18 @@ public class LoginServiceImpl implements LoginService {
     private AuthenticationHandler authenticationHandler;
 
     @Override
-    public boolean authenticateUser(String accessToken) {
-        String email = getEmailFromFacebook(accessToken);
+    public boolean authenticateUser(final String accessToken) {
+        final String email = getEmailFromFacebook(accessToken);
 
-        AuthenticateResponseModel response = new AuthenticateResponseModel();
+        final AuthenticateResponseModel response = new AuthenticateResponseModel();
         if (email.equals("")) {
             return false;
         }
 
-        UserAuthenticateModel user = new UserAuthenticateModel();
-        user.setPassword(accessToken);
-        user.setUserName(email);
-
-        return authenticationHandler.authenticateUserAndInitializeSessionByUsername(user);
+        return authenticationHandler.authenticateUserAndInitializeSessionByUsername(UserAuthenticateModel.builder()
+                .password(accessToken)
+                .userName(email)
+                .build());
     }
 
     @Override

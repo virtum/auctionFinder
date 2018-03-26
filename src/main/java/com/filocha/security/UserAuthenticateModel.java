@@ -1,21 +1,17 @@
 package com.filocha.security;
 
+import lombok.Builder;
+import lombok.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+@Value
+@Builder
 public class UserAuthenticateModel implements UserDetails {
     private String userName;
     private String password;
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
