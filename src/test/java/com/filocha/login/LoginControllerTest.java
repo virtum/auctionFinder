@@ -2,7 +2,6 @@ package com.filocha.login;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.filocha.security.AuthenticationHandler;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -41,8 +40,6 @@ public class LoginControllerTest {
     @MockBean
     private FacebookValidator facebookValidator;
 
-    @Autowired
-    private AuthenticationHandler authenticationHandler;
     @Autowired
     private WebApplicationContext wac;
     @Autowired
