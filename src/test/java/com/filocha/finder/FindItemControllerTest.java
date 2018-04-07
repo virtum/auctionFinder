@@ -32,6 +32,7 @@ public class FindItemControllerTest {
     private ClientBus clientBus;
 
     @Test
+    // TODO fix this test
     public void should() {
         final String item = "itemName";
         final String email = "email";

@@ -9,6 +9,8 @@ import java.security.Principal;
 public class LoginController {
 
     @Autowired
+    private FacebookValidator facebookValidator;
+    @Autowired
     private LoginService loginService;
 
     /**
@@ -20,13 +22,14 @@ public class LoginController {
     @CrossOrigin
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public AuthenticateResponseModel authenticate(@RequestBody AuthenticateRequestModel token) {
-        String accessToken = token.getAccessToken();
+        final String accessToken = token.getAccessToken();
+        final String email = facebookValidator.getEmailFromFacebook(accessToken);
 
-        boolean logged = loginService.authenticateUser(accessToken);
+        boolean isLogged = loginService.authenticateUser(accessToken, email);
 
         return AuthenticateResponseModel
                 .builder()
-                .isLogged(logged)
+                .isLogged(isLogged)
                 .build();
     }
 

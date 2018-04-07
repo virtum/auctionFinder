@@ -16,7 +16,7 @@ public class AuthenticationHandler {
      */
     public boolean authenticateUserAndInitializeSessionByUsername(UserAuthenticateModel userModel) {
         try {
-            Authentication auth = new UsernamePasswordAuthenticationToken(userModel, null, userModel.getAuthorities());
+            final Authentication auth = new UsernamePasswordAuthenticationToken(userModel, null, userModel.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
 
             return true;

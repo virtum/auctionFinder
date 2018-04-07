@@ -22,14 +22,14 @@ public class AccountController {
     @CrossOrigin
     @RequestMapping(value = "/rest/subscriptions", method = RequestMethod.GET)
     public DeferredResult<AccountResponseModel> getAccountData(Principal principal) {
-        SubscriptionsRequestModel requestMessage = SubscriptionsRequestModel
+        final SubscriptionsRequestModel requestMessage = SubscriptionsRequestModel
                 .builder()
                 .email(principal.getName())
                 .build();
 
-        CompletableFuture<SubscriptionsResponseModel> responseMessage = clientBus.sendRequest(requestMessage, SubscriptionsRequestModel.class);
+        final CompletableFuture<SubscriptionsResponseModel> responseMessage = clientBus.sendRequest(requestMessage, SubscriptionsRequestModel.class);
 
-        DeferredResult<AccountResponseModel> result = new DeferredResult<>(60000L, "Timeout");
+        final DeferredResult<AccountResponseModel> result = new DeferredResult<>(60000L, "Timeout");
         responseMessage.thenAcceptAsync(it -> result.setResult(AccountResponseModel
                 .builder()
                 .auctions(it.getUserSubscriptions())

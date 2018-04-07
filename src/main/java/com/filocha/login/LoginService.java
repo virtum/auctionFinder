@@ -7,10 +7,11 @@ public interface LoginService {
     /**
      * This method is used to add new user to spring security context, after that user will be authenticated.
      *
-     * @param accessToken facebook accessToken is used to get more information about user
+     * @param accessToken facebook accessToken, it will be used as a user password
+     * @param email       user email, it will be used as a user name
      * @return true if user was properly authenticated, otherwise false
      */
-    boolean authenticateUser(String accessToken);
+    boolean authenticateUser(final String accessToken, final String email);
 
     /***
      * This method is used to check if user is authenticated or not.
