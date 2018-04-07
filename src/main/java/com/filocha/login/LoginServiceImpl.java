@@ -25,7 +25,7 @@ public class LoginServiceImpl implements LoginService {
     public boolean authenticateUser(final String accessToken) {
         final String email = getEmailFromFacebook(accessToken);
 
-        final AuthenticateResponseModel response = new AuthenticateResponseModel();
+        // final AuthenticateResponseModel response = new AuthenticateResponseModel();
         if (email.equals("")) {
             return false;
         }

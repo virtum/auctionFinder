@@ -1,7 +1,6 @@
 package com.filocha.account;
 
 import com.filocha.messaging.client.ClientBus;
-import com.filocha.messaging.client.ClientBusImpl;
 import com.filocha.messaging.messages.subscriptions.SubscriptionsRequestModel;
 import com.filocha.messaging.messages.subscriptions.SubscriptionsResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +19,9 @@ public class AccountController {
     @Autowired
     private ClientBus clientBus;
 
-
     @CrossOrigin
     @RequestMapping(value = "/rest/subscriptions", method = RequestMethod.GET)
     public DeferredResult<AccountResponseModel> getAccountData(Principal principal) {
-        AccountResponseModel response = new AccountResponseModel();
-        response.setAccountData("test");
-
         SubscriptionsRequestModel requestMessage = SubscriptionsRequestModel
                 .builder()
                 .email(principal.getName())
@@ -35,11 +30,12 @@ public class AccountController {
         CompletableFuture<SubscriptionsResponseModel> responseMessage = clientBus.sendRequest(requestMessage, SubscriptionsRequestModel.class);
 
         DeferredResult<AccountResponseModel> result = new DeferredResult<>(60000L, "Timeout");
-        responseMessage.thenAcceptAsync(it -> {
-            response.setAuctions(it.getUserSubscriptions());
-            System.out.println(it.getUserSubscriptions());
-            result.setResult(response);
-        });
+        responseMessage.thenAcceptAsync(it -> result.setResult(AccountResponseModel
+                .builder()
+                .auctions(it.getUserSubscriptions())
+                .accountData("test")
+                .build()));
+
         return result;
     }
 }

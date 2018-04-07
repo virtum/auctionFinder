@@ -5,8 +5,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class AuthenticateRequestModel {
-    
-    private String accessToken;
+public class LoginCheckerResponseModel {
 
+    private boolean isLogged;
 }

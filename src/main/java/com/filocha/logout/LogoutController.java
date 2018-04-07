@@ -21,8 +21,9 @@ public class LogoutController {
     public LogoutResponseModel logout(HttpSession session) {
         session.invalidate();
 
-        LogoutResponseModel response = new LogoutResponseModel();
-        response.setResponse(false);
-        return response;
+        return LogoutResponseModel
+                .builder()
+                .response(false)
+                .build();
     }
 }

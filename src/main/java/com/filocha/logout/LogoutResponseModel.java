@@ -1,14 +1,11 @@
 package com.filocha.logout;
 
+import lombok.Builder;
+import lombok.Value;
+
+@Value
+@Builder
 public class LogoutResponseModel {
 
     private boolean response;
-
-    public boolean getResponse() {
-        return response;
-    }
-
-    public void setResponse(boolean response) {
-        this.response = response;
-    }
 }

@@ -10,6 +10,7 @@ import java.util.Collection;
 @Value
 @Builder
 public class UserAuthenticateModel implements UserDetails {
+
     private String userName;
     private String password;
 

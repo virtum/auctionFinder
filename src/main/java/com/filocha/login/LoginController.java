@@ -24,9 +24,10 @@ public class LoginController {
 
         boolean logged = loginService.authenticateUser(accessToken);
 
-        AuthenticateResponseModel response = new AuthenticateResponseModel();
-        response.setLogged(logged);
-        return response;
+        return AuthenticateResponseModel
+                .builder()
+                .isLogged(logged)
+                .build();
     }
 
     /**
@@ -37,14 +38,14 @@ public class LoginController {
      */
     @CrossOrigin
     @RequestMapping(value = "/isLogged", method = RequestMethod.GET)
-    public LoginCheckerResponeModel checkIfUserIsLogged(Principal principal) {
+    public LoginCheckerResponseModel checkIfUserIsLogged(Principal principal) {
         boolean logged = loginService.checkIfUserIsLogged(principal);
 
-        LoginCheckerResponeModel response = new LoginCheckerResponeModel();
-        response.setLogged(logged);
-        return response;
+        return LoginCheckerResponseModel
+                .builder()
+                .isLogged(logged)
+                .build();
     }
-
 
 }
 

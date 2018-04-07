@@ -1,14 +1,12 @@
 package com.filocha.login;
 
+import lombok.Builder;
+import lombok.Value;
+
+@Value
+@Builder
 public class AuthenticateResponseModel {
-    private boolean logged;
 
-    public boolean getLogged() {
-        return logged;
-    }
-
-    public void setLogged(boolean logged) {
-        this.logged = logged;
-    }
+    private boolean isLogged;
 
 }
