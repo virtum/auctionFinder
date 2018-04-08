@@ -11,10 +11,6 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private RESTAuthenticationEntryPoint authenticationEntryPoint;
-    @Autowired
-    private RESTAuthenticationFailureHandler authenticationFailureHandler;
-    @Autowired
-    private RESTAuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -22,7 +18,5 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll();//allow CORS option calls
         http.authorizeRequests().antMatchers("/rest/**").authenticated();
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
-        http.formLogin().successHandler(authenticationSuccessHandler);
-        http.formLogin().failureHandler(authenticationFailureHandler);
     }
 }
