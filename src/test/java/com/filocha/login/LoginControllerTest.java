@@ -3,7 +3,6 @@ package com.filocha.login;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,19 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.FilterChainProxy;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.Charset;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringRunner.class)
@@ -59,61 +60,86 @@ public class LoginControllerTest {
     @Test
     public void shouldNotAuthenticateUserIfTokenIsNotValid() {
         // given
-        final String accessToken = "accessToken";
-        final String request = mapper.writeValueAsString(AuthenticateRequestModel
-                .builder()
-                .accessToken(accessToken)
-                .build());
+        final MockHttpSession session = new MockHttpSession();
+        session.setAttribute(
+                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                SecurityContextHolder.getContext());
 
+        mockMvc.perform(get("/isLogged").session(session))
+                .andExpect(content().json(mapper.writeValueAsString(
+                        AuthenticateResponseModel
+                                .builder()
+                                .isLogged(false)
+                                .build())));
+
+        final String accessToken = "invalidToken";
+        // if token is invalid, facebookValidator will return empty string instead of valid email
         when(facebookValidator.getEmailFromFacebook(accessToken)).thenReturn("");
 
         // when
-        final String result = mockMvc.perform(post("/authenticate")
+        mockMvc.perform(post("/authenticate").session(session)
                 .contentType(APPLICATION_JSON_UTF8)
-                .content(request))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        final boolean isLogged = new JSONObject(result).getBoolean("logged");
+                .content(mapper.writeValueAsString(
+                        AuthenticateRequestModel
+                                .builder()
+                                .accessToken(accessToken)
+                                .build())))
+                .andExpect(content().json(mapper.writeValueAsString(
+                        AuthenticateResponseModel
+                                .builder()
+                                .isLogged(false)
+                                .build())));
 
         // then
-        assertFalse(isLogged);
+        mockMvc.perform(get("/isLogged").session(session))
+                .andExpect(content().json(mapper.writeValueAsString(
+                        AuthenticateResponseModel
+                                .builder()
+                                .isLogged(false)
+                                .build())));
     }
 
     @SneakyThrows
     @Test
     public void shouldAuthenticateUser() {
         // given
-        String result = mockMvc.perform(get("/isLogged"))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+        final MockHttpSession session = new MockHttpSession();
+        session.setAttribute(
+                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                SecurityContextHolder.getContext());
 
-        boolean isLogged = new JSONObject(result).getBoolean("logged");
+        mockMvc.perform(get("/isLogged").session(session))
+                .andExpect(content().json(mapper.writeValueAsString(
+                        AuthenticateResponseModel
+                                .builder()
+                                .isLogged(false)
+                                .build())));
 
-        assertFalse(isLogged);
-
-        final String accessToken = "accessToken";
-        final String request = mapper.writeValueAsString(AuthenticateRequestModel
-                .builder()
-                .accessToken(accessToken)
-                .build());
-
+        final String accessToken = "validToken";
+        // if token is valid, facebookValidator will return valid email
         when(facebookValidator.getEmailFromFacebook(accessToken)).thenReturn("email");
 
         // when
-        result = mockMvc.perform(post("/authenticate")
+        mockMvc.perform(post("/authenticate").session(session)
                 .contentType(APPLICATION_JSON_UTF8)
-                .content(request))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        isLogged = new JSONObject(result).getBoolean("logged");
+                .content(mapper.writeValueAsString(
+                        AuthenticateRequestModel
+                                .builder()
+                                .accessToken(accessToken)
+                                .build())))
+                .andExpect(content().json(mapper.writeValueAsString(
+                        AuthenticateResponseModel
+                                .builder()
+                                .isLogged(true)
+                                .build())));
 
         // then
-        assertTrue(isLogged);
+        mockMvc.perform(get("/isLogged").session(session))
+                .andExpect(content().json(mapper.writeValueAsString(
+                        AuthenticateResponseModel
+                                .builder()
+                                .isLogged(true)
+                                .build())));
     }
 
 }

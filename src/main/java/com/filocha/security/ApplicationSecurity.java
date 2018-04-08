@@ -19,7 +19,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/**").permitAll();//allow CORS option calls
+        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll();//allow CORS option calls
         http.authorizeRequests().antMatchers("/rest/**").authenticated();
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         http.formLogin().successHandler(authenticationSuccessHandler);
