@@ -32,8 +32,8 @@ public class AccountController {
         final DeferredResult<AccountResponseModel> result = new DeferredResult<>(60000L, "Timeout");
         responseMessage.thenAcceptAsync(it -> result.setResult(AccountResponseModel
                 .builder()
-                .auctions(it.getUserSubscriptions())
-                .accountData("test")
+                .userSubscriptions(it.getUserSubscriptions())
+                .subscriptionCounter(it.getSubscriptionCounter())
                 .build()));
 
         return result;

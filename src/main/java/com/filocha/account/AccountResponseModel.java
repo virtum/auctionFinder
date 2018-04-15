@@ -1,5 +1,6 @@
 package com.filocha.account;
 
+import com.filocha.messaging.messages.subscriptions.Subscription;
 import lombok.Builder;
 import lombok.Value;
 
@@ -9,7 +10,7 @@ import java.util.List;
 @Builder
 public class AccountResponseModel {
 
-    private String accountData;
-    private List<String> auctions;
+    private List<Subscription> userSubscriptions;
+    private Long subscriptionCounter;
 
 }

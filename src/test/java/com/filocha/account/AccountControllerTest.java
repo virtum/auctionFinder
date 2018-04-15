@@ -1,6 +1,7 @@
 package com.filocha.account;
 
 import com.filocha.messaging.client.ClientBus;
+import com.filocha.messaging.messages.subscriptions.Subscription;
 import com.filocha.messaging.messages.subscriptions.SubscriptionsRequestModel;
 import com.filocha.messaging.messages.subscriptions.SubscriptionsResponseModel;
 import com.filocha.security.AuthenticationHandler;
@@ -74,7 +75,11 @@ public class AccountControllerTest {
         final CompletableFuture<Object> jmsResponse = new CompletableFuture<>();
         jmsResponse.complete(SubscriptionsResponseModel
                 .builder()
-                .userSubscriptions(Collections.singletonList(subscriptionItem))
+                .userSubscriptions(Collections.singletonList(
+                        Subscription
+                                .builder()
+                                .itemName(subscriptionItem)
+                                .build()))
                 .build());
 
         when(clientBus
@@ -91,8 +96,8 @@ public class AccountControllerTest {
                 .getAsyncResult();
 
         // then
-        assertEquals(1, result.getAuctions().size());
-        assertEquals(subscriptionItem, result.getAuctions().get(0));
+        assertEquals(1, result.getUserSubscriptions().size());
+        assertEquals(subscriptionItem, result.getUserSubscriptions().get(0).getItemName());
     }
 
 }
