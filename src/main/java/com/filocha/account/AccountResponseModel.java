@@ -11,6 +11,7 @@ import java.util.List;
 public class AccountResponseModel {
 
     private List<Subscription> userSubscriptions;
-    private Long subscriptionCounter;
+    private Integer numberOfFoundItems;
+    private Integer subscriptionCounter;
 
 }

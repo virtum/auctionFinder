@@ -33,7 +33,7 @@ public class AccountController {
         responseMessage.thenAcceptAsync(it -> result.setResult(AccountResponseModel
                 .builder()
                 .userSubscriptions(it.getUserSubscriptions())
-                .subscriptionCounter(it.getSubscriptionCounter())
+                .subscriptionCounter(it.getUserSubscriptions().size())
                 .build()));
 
         return result;
