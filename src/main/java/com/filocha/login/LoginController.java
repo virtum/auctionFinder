@@ -14,7 +14,7 @@ public class LoginController {
     private LoginService loginService;
 
     /**
-     * This method is used to authenticate user using accessToken from facebook received with http request.
+     * Authenticates user using accessToken from facebook received with http request.
      *
      * @param token accessToken received from facebook after user login
      * @return response with information if user was properly authenticated on backend side or not
@@ -34,7 +34,7 @@ public class LoginController {
     }
 
     /**
-     * This method is used to check if user is authenticated or not.
+     * Checks if user is authenticated or not.
      *
      * @param principal user data, contains information about user
      * @return response with information if user is authenticated or not

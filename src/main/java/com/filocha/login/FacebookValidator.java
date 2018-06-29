@@ -15,7 +15,7 @@ import java.util.Objects;
 public class FacebookValidator {
 
     /***
-     * This method is used to send request via http to facebook to get user e-mail using accessToken.
+     * Sends request via http to facebook to get user e-mail using accessToken.
      *
      * @param accessToken token received after login to facebook
      * @return user e-mail, in case of exception empty string
