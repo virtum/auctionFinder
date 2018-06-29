@@ -61,7 +61,7 @@
         <dependency>
             <groupId>com.filocha</groupId>
             <artifactId>messaging</artifactId>
-            <version>1.12-SNAPSHOT</version>
+            <version>1.18-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>

@@ -19,17 +19,23 @@ public class AccountController {
     @Autowired
     private ClientBus clientBus;
 
+    /**
+     * Retrieves data for given user of all subscriptions from external microservice through messaging.
+     *
+     * @param request incoming request message
+     * @return details of user's subscriptions
+     */
     @CrossOrigin
     @RequestMapping(value = "/rest/subscriptions", method = RequestMethod.GET)
-    public DeferredResult<AccountResponseModel> getAccountData(Principal principal) {
+    public DeferredResult<AccountResponseModel> getAccountData(final Principal request) {
         final SubscriptionsRequestModel requestMessage = SubscriptionsRequestModel
                 .builder()
-                .email(principal.getName())
+                .email(request.getName())
                 .build();
 
-        final CompletableFuture<SubscriptionsResponseModel> responseMessage = clientBus.sendRequest(requestMessage, SubscriptionsRequestModel.class);
-
         final DeferredResult<AccountResponseModel> result = new DeferredResult<>(60000L, "Timeout");
+
+        final CompletableFuture<SubscriptionsResponseModel> responseMessage = clientBus.sendRequest(requestMessage, SubscriptionsRequestModel.class);
         responseMessage.thenAcceptAsync(it -> result.setResult(AccountResponseModel
                 .builder()
                 .userSubscriptions(it.getUserSubscriptions())
