@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class AuthenticationHandler {
 
     /**
-     * This method is used to add new user into spring security context to authenticate him.
+     * Adds new user into spring security context to authenticate him.
      *
      * @param userModel contains data about user necessary to authentication
      * @return true if user was authenticated, otherwise false

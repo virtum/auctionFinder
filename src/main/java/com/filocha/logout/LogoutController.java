@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 public class LogoutController {
 
     /**
-     * This method is used to logout logged user.
+     * Logout logged user.
      *
      * @param session is used to invalidate user from spring security context
      * @return response with flag to see if user was logged out
